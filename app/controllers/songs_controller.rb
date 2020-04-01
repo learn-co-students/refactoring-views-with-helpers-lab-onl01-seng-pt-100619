@@ -12,7 +12,11 @@ class SongsController < ApplicationController
   end
 
   def create
-    @song = Song.new(song_params)
+    if song_params[:artist_name].blank?
+      @song = Song.new(title: params[:title])
+    else
+      @song = Song.new(song_params)
+    end
 
     if @song.save
       redirect_to @song
